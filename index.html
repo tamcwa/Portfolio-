@@ -8,11 +8,11 @@
   <title>YOUR NAME — Visual Designer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --paper: #f7f8fc;
-      --paper-2: #eef0f7;
+      --paper: #f8f7f4;
+      --paper-2: #efedf5;
       --ink: #171923;
       --muted: #777b8c;
       --line: rgba(30, 34, 54, .13);
@@ -23,7 +23,7 @@
       --lime: #d5ef83;
       --mono: "DM Mono", monospace;
       --sans: "DM Sans", Arial, sans-serif;
-      --display: "Manrope", Arial, sans-serif;
+      --display: "Space Grotesk", Arial, sans-serif;
       --serif: "Playfair Display", Georgia, serif;
       --gutter: clamp(20px, 5vw, 76px);
       --max: 1480px;
@@ -433,6 +433,285 @@
       .cursor-orb { display: none; }
     }
 
+
+
+    /* REFERENCE-LED MOTION REFINEMENT */
+    :root {
+      --paper: #f8f7f4;
+      --paper-2: #efedf5;
+      --violet: #7653e8;
+      --rose: #f2a9c8;
+      --cyan: #b9eaf0;
+    }
+    body { background: var(--paper); }
+    .hero {
+      background:
+        radial-gradient(ellipse at 15% 3%, rgba(112,190,255,.24), transparent 32%),
+        radial-gradient(ellipse at 88% 22%, rgba(169,135,255,.20), transparent 33%),
+        linear-gradient(180deg,#fbfbfd 0%,#f2f1f8 100%);
+    }
+    .hero h1 { letter-spacing: -.105em; }
+    .hero h1 .stroke { -webkit-text-stroke-width: 1.9px; }
+    .hero .orbit-wrap { display: none; }
+
+    /* Video 1: a curved 3D gallery that resolves into a project grid as you scroll */
+    .gallery-sequence {
+      height: 205vh;
+      position: relative;
+      background:
+        radial-gradient(ellipse at 50% 48%,rgba(204,201,255,.24),transparent 48%),
+        linear-gradient(180deg,#f1f1f8 0%,#f8f7f4 100%);
+      border-bottom: 1px solid var(--line);
+    }
+    .gallery-sticky {
+      position: sticky;
+      top: var(--header);
+      height: calc(100svh - var(--header));
+      min-height: 610px;
+      display: grid;
+      grid-template-rows: auto minmax(0,1fr) auto;
+      padding: clamp(25px,4vw,54px) var(--gutter) 22px;
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .gallery-sticky::before {
+      content: "";
+      position: absolute;
+      width: min(70vw,900px);
+      aspect-ratio: 1;
+      border: 1px solid rgba(70,86,160,.09);
+      border-radius: 50%;
+      left: 50%; top: 54%;
+      transform: translate(-50%,-50%);
+      box-shadow: 0 0 0 55px rgba(95,107,180,.025),0 0 0 110px rgba(95,107,180,.02);
+      pointer-events: none; z-index: -1;
+    }
+    .gallery-heading {
+      width: min(100%,var(--max));
+      margin: 0 auto;
+      display: flex; align-items: end; justify-content: space-between; gap: 20px;
+      position: relative; z-index: 4;
+    }
+    .gallery-heading h2 {
+      margin: 10px 0 0;
+      font: 700 clamp(28px,4vw,52px)/.93 var(--display);
+      letter-spacing: -.075em;
+    }
+    .gallery-heading h2 em { color: var(--blue); font-style: normal; }
+    .gallery-side-note {
+      color: var(--muted); font: 9px var(--mono);
+      letter-spacing: .09em; text-transform: uppercase; text-align: right;
+    }
+    .gallery-stage {
+      position: relative; min-height: 0; width: 100%;
+      perspective: 1500px; transform-style: preserve-3d;
+    }
+    .gallery-stage .orbit-wrap {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%; max-width: none; margin: 0;
+      perspective: 1500px; transform-style: preserve-3d;
+    }
+    .gallery-stage .orbit-track {
+      position: absolute; inset: 0; transform-style: preserve-3d;
+    }
+    .gallery-stage .orbit-card {
+      width: clamp(180px,22vw,305px);
+      aspect-ratio: 1.2;
+      border: 7px solid rgba(255,255,255,.9);
+      border-radius: 13px;
+      padding: 8px;
+      box-shadow: 0 28px 65px rgba(44,52,100,.22),0 5px 14px rgba(44,52,100,.08);
+      animation: none;
+      will-change: transform;
+      transition: box-shadow .35s ease;
+    }
+    .gallery-stage .orbit-card.card-3 { width: clamp(195px,24vw,330px); }
+    .gallery-stage .orbit-card:hover { box-shadow: 0 36px 78px rgba(44,52,100,.3); }
+    .gallery-stage .orbit-label { transition: opacity .25s ease, transform .5s ease; }
+    .gallery-stage .orbit-label.label-a { left: 8%; top: 20%; }
+    .gallery-stage .orbit-label.label-b { right: 8%; top: 17%; }
+    .gallery-stage .orbit-label.label-c { left: 14%; bottom: 13%; }
+    .gallery-foot {
+      display: flex; justify-content: space-between; align-items: center; gap: 18px;
+      color: #83879a; font: 9px var(--mono);
+      letter-spacing: .1em; text-transform: uppercase;
+      position: relative; z-index: 4;
+    }
+    .gallery-progress { width: min(28vw,260px); height: 2px; background: rgba(49,91,250,.14); overflow: hidden; }
+    .gallery-progress span { display: block; width: 0; height: 100%; background: linear-gradient(90deg,#39c5ec,#315bfa,#8953eb); }
+
+    /* Small fixed section index, inspired by the vertical navigation in reference video 2 */
+    .side-index {
+      position: fixed; z-index: 80; left: 18px; top: 50%; transform: translateY(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      padding: 12px 8px; border: 1px solid rgba(37,43,73,.1);
+      border-radius: 99px; background: rgba(255,255,255,.72);
+      box-shadow: 0 8px 26px rgba(50,58,100,.08);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    }
+    .side-index a {
+      width: 25px; height: 25px; border-radius: 50%;
+      display: grid; place-items: center;
+      color: #85899a; font: 8px var(--mono);
+      transition: color .2s, background .2s, transform .2s;
+    }
+    .side-index a:hover,.side-index a.is-active {
+      color: white; background: var(--blue); transform: scale(1.08);
+    }
+
+    /* Video 2: stronger colour blocking and layered sticky case-study panels */
+    .work-section { padding-top: clamp(90px,11vw,145px); }
+    .work-panel {
+      top: calc(92px + var(--panel-index) * 17px);
+      min-height: clamp(640px,76vh,820px);
+      margin-bottom: 12vh;
+      border-radius: 23px;
+      will-change: transform;
+    }
+    .panel-01 { background: #4b35bc; color: #fff; }
+    .panel-02 { background: #ff713f; color: #fffdf8; }
+    .panel-03 { background: #ed3456; color: #fff; }
+    .panel-04 { background: #705746; color: #fffaf2; }
+    .panel-copy p { opacity: .83; }
+    .panel-tags span { opacity: .9; }
+    .panel-count { opacity: .86; }
+    .panel-window { box-shadow: 20px 28px 60px rgba(35,32,70,.28); }
+    .work-panel::after {
+      content: "";
+      position: absolute; width: 390px; height: 390px;
+      right: -180px; top: -200px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.2);
+      box-shadow: 0 0 0 38px rgba(255,255,255,.05),0 0 0 76px rgba(255,255,255,.035);
+      pointer-events: none;
+    }
+
+    /* Video 3: collage, editorial serif and a drawn line transition into the dark section */
+    .inspiration-section {
+      position: relative; overflow: hidden;
+      padding: clamp(80px,10vw,135px) var(--gutter) clamp(80px,9vw,120px);
+      background: #f1eee8;
+      color: #282733;
+      min-height: 760px;
+    }
+    .inspiration-shell { width: min(100%,var(--max)); margin: 0 auto; }
+    .inspiration-head {
+      display: flex; justify-content: space-between; align-items: center; gap: 20px;
+      position: relative; z-index: 3;
+    }
+    .inspiration-head .eyebrow::before { background: #e26b63; box-shadow: 0 0 0 4px rgba(226,107,99,.12); }
+    .inspiration-head .mono { color: #898590; font-size: 9px; letter-spacing: .1em; }
+    .inspiration-canvas {
+      height: clamp(480px,57vw,700px);
+      max-height: 720px;
+      margin-top: 25px; position: relative;
+      isolation: isolate;
+    }
+    .inspiration-title {
+      position: absolute; z-index: 5;
+      left: 50%; top: 48%; transform: translate(-50%,-50%);
+      width: min(76%,850px); text-align: center;
+      font: 500 clamp(39px,6.6vw,88px)/.94 var(--serif);
+      letter-spacing: -.065em;
+      pointer-events: none;
+    }
+    .inspiration-title em { color: #6b5bd1; font-weight: 500; }
+    .inspiration-title small {
+      display: block; margin-top: 19px; color: #898590;
+      font: 9px var(--mono); letter-spacing: .15em; text-transform: uppercase;
+    }
+    .inspire-tile {
+      position: absolute; width: clamp(76px,10vw,135px); aspect-ratio: .76;
+      padding: 5px; background: rgba(255,255,255,.82);
+      box-shadow: 0 12px 28px rgba(62,57,83,.13);
+      border: 1px solid rgba(255,255,255,.8);
+      opacity: 0; transform: translateY(30px) scale(.92) rotate(var(--rot,0deg));
+      transition: opacity .8s ease, transform 1s cubic-bezier(.2,.75,.25,1);
+      transition-delay: var(--delay,0s);
+    }
+    .inspire-tile.is-visible { opacity: 1; transform: translateY(0) scale(1) rotate(var(--rot,0deg)); }
+    .inspire-tile .portrait {
+      width: 100%; height: 100%; overflow: hidden; position: relative;
+      display: flex; align-items: end; justify-content: center;
+      background: var(--tile-bg);
+    }
+    .inspire-tile .portrait::before {
+      content: ""; position: absolute; width: 45%; height: 45%; top: 13%;
+      border-radius: 48% 48% 42% 42%; background: var(--skin);
+      box-shadow: 0 -12px 0 3px var(--hair);
+    }
+    .inspire-tile .portrait::after {
+      content: ""; position: absolute; width: 78%; height: 42%; bottom: -8%;
+      border-radius: 48% 48% 0 0; background: var(--shirt);
+    }
+    .inspire-tile .portrait b {
+      position: absolute; z-index: 2; left: 7px; top: 7px;
+      color: rgba(35,35,50,.65); font: 7px var(--mono);
+    }
+    .tile-a { left: 5%; top: 12%; --rot:-8deg; --delay:.05s; --tile-bg:#b7d9e2; --skin:#d7a68e; --hair:#4d3d3e; --shirt:#e8e1d8; }
+    .tile-b { left: 22%; top: 3%; --rot:6deg; --delay:.12s; --tile-bg:#e6c0cb; --skin:#a66f5c; --hair:#342e39; --shirt:#8c70a8; }
+    .tile-c { right: 21%; top: 1%; --rot:-5deg; --delay:.2s; --tile-bg:#c6d6cb; --skin:#e2bda1; --hair:#72554b; --shirt:#f0d8b4; }
+    .tile-d { right: 4%; top: 16%; --rot:8deg; --delay:.28s; --tile-bg:#dfd4ef; --skin:#ba816c; --hair:#332b32; --shirt:#5e6f89; }
+    .tile-e { left: 10%; bottom: 7%; --rot:5deg; --delay:.16s; --tile-bg:#d4c8b7; --skin:#e1b99d; --hair:#5b4741; --shirt:#b65b61; }
+    .tile-f { left: 31%; bottom: 0; --rot:-7deg; --delay:.24s; --tile-bg:#c7dfe7; --skin:#93624f; --hair:#292c38; --shirt:#e9e5dc; }
+    .tile-g { right: 29%; bottom: 1%; --rot:7deg; --delay:.32s; --tile-bg:#e6d2b9; --skin:#d5a68a; --hair:#65483f; --shirt:#8f9f78; }
+    .tile-h { right: 7%; bottom: 8%; --rot:-6deg; --delay:.4s; --tile-bg:#c8c5df; --skin:#9e715f; --hair:#242a35; --shirt:#e5c1d1; }
+    .scribble-line {
+      position: absolute; z-index: 4; inset: 0; width: 100%; height: 100%;
+      pointer-events: none; overflow: visible;
+    }
+    .scribble-line path {
+      fill: none; stroke: #e17c76; stroke-width: 2.1;
+      stroke-linecap: round; stroke-linejoin: round;
+      stroke-dasharray: 1200; stroke-dashoffset: 1200;
+      transition: stroke-dashoffset 2.1s cubic-bezier(.4,0,.2,1) .45s;
+    }
+    .inspiration-section.is-visible .scribble-line path { stroke-dashoffset: 0; }
+    .inspiration-bottom {
+      display: flex; justify-content: space-between; gap: 20px;
+      color: #8b8791; font: 9px var(--mono); letter-spacing: .1em; text-transform: uppercase;
+    }
+    .about-section {
+      clip-path: inset(9% 1.2% 0 round 30px);
+      transition: clip-path 1.1s cubic-bezier(.2,.75,.25,1);
+    }
+    .about-section.is-in-view { clip-path: inset(0 0 0 round 0); }
+
+    @media (max-width: 1200px) { .side-index { display: none; } }
+    @media (max-width: 850px) {
+      .gallery-sticky { min-height: 590px; padding-inline: 22px; }
+      .gallery-stage .orbit-card { width: 205px; }
+      .gallery-stage .orbit-card.card-3 { width: 220px; }
+      .inspiration-section { min-height: 650px; }
+    }
+    @media (max-width: 560px) {
+      .gallery-sequence { height: 175vh; }
+      .gallery-sticky { min-height: 560px; padding: 23px 20px 17px; }
+      .gallery-heading { align-items: flex-start; flex-direction: column; gap: 8px; }
+      .gallery-heading h2 { font-size: 30px; }
+      .gallery-side-note { text-align: left; }
+      .gallery-stage .orbit-card { width: 155px; }
+      .gallery-stage .orbit-card.card-3 { width: 170px; }
+      .gallery-stage .orbit-label { font-size: 6px; padding: 6px 8px; }
+      .gallery-foot { font-size: 7px; }
+      .gallery-progress { width: 25vw; }
+      .work-panel { min-height: 700px; }
+      .inspiration-section { min-height: 650px; padding-inline: 20px; }
+      .inspiration-canvas { height: 490px; margin-top: 15px; }
+      .inspiration-title { width: 88%; font-size: clamp(35px,10vw,49px); }
+      .inspire-tile { width: 77px; padding: 4px; }
+      .tile-a { left: 1%; top: 8%; }
+      .tile-b { left: 22%; top: 0; }
+      .tile-c { right: 21%; top: 0; }
+      .tile-d { right: 1%; top: 9%; }
+      .tile-e { left: 2%; bottom: 3%; }
+      .tile-f { left: 23%; bottom: -1%; }
+      .tile-g { right: 23%; bottom: -1%; }
+      .tile-h { right: 2%; bottom: 4%; }
+      .inspiration-bottom { font-size: 7px; }
+      .about-section { clip-path: none; }
+    }
+
+
     /* Responsive */
     @media (max-width: 850px) {
       :root { --header: 68px; }
@@ -495,12 +774,21 @@
 </head>
 <body>
   <div class="cursor-orb" aria-hidden="true"></div>
+  <aside class="side-index" aria-label="Page sections">
+    <a href="#home" data-section="home" class="is-active" aria-label="Home" title="Home">01</a>
+    <a href="#gallery" data-section="gallery" aria-label="Gallery" title="Gallery">02</a>
+    <a href="#work" data-section="work" aria-label="Selected work" title="Selected work">03</a>
+    <a href="#inspiration" data-section="inspiration" aria-label="Inspiration" title="Inspiration">04</a>
+    <a href="#about" data-section="about" aria-label="About" title="About">05</a>
+    <a href="#contact" data-section="contact" aria-label="Contact" title="Contact">06</a>
+  </aside>
   <header class="site-header">
     <nav class="nav" aria-label="Main navigation">
       <a class="logo" href="#home"><span class="logo-mark">✳</span><span>YOUR NAME<span style="color:var(--blue)">.</span></span></a>
       <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="nav-right"><span></span><span></span></button>
       <div class="nav-right" id="nav-right">
         <div class="nav-links">
+          <a href="#gallery">Gallery</a>
           <a href="#work">Selected work</a>
           <a href="#about">About</a>
           <a href="#contact">Contact</a>
@@ -559,18 +847,29 @@
       </div>
     </section>
 
-    <div class="marquee" aria-hidden="true">
-      <div class="marquee-track">
-        <span>Visual identity ✳ Graphic design ✳ Digital experiences ✳ Art direction ✳</span>
-        <span>Visual identity ✳ Graphic design ✳ Digital experiences ✳ Art direction ✳</span>
+    <section class="gallery-sequence" id="gallery" aria-label="Selected work gallery">
+      <div class="gallery-sticky">
+        <div class="gallery-heading">
+          <div>
+            <span class="eyebrow">Selected projects / 2023—2026</span>
+            <h2>From a curve <em>to a collection.</em></h2>
+          </div>
+          <span class="gallery-side-note">Scroll to arrange<br>01 — 05 / Selected work</span>
+        </div>
+        <div class="gallery-stage" id="gallery-stage"></div>
+        <div class="gallery-foot">
+          <span>DESIGN IN MOTION / A VISUAL ARCHIVE</span>
+          <span class="gallery-progress"><span id="gallery-progress-fill"></span></span>
+          <span>Keep scrolling ↓</span>
+        </div>
       </div>
-    </div>
+    </section>
 
     <section class="section-pad work-section" id="work">
       <div class="shell">
         <div class="work-intro reveal">
           <div>
-            <span class="eyebrow">A selection of visual explorations / 01</span>
+            <span class="eyebrow">Selected work / case studies / 02</span>
             <h2>Selected <span>work.</span></h2>
           </div>
           <p>A closer look at ideas brought to life through shape, colour and story. These are visual placeholders for your future case studies.</p>
@@ -666,10 +965,37 @@
       </div>
     </section>
 
+    <section class="inspiration-section reveal" id="inspiration">
+      <div class="inspiration-shell">
+        <div class="inspiration-head">
+          <span class="eyebrow">Collect moments / Create meaning</span>
+          <span class="mono">A VISUAL JOURNAL — 03</span>
+        </div>
+        <div class="inspiration-canvas">
+          <div class="inspire-tile tile-a"><div class="portrait"><b>01 / FORM</b></div></div>
+          <div class="inspire-tile tile-b"><div class="portrait"><b>02 / PEOPLE</b></div></div>
+          <div class="inspire-tile tile-c"><div class="portrait"><b>03 / COLOUR</b></div></div>
+          <div class="inspire-tile tile-d"><div class="portrait"><b>04 / OBJECT</b></div></div>
+          <div class="inspire-tile tile-e"><div class="portrait"><b>05 / ART</b></div></div>
+          <div class="inspire-tile tile-f"><div class="portrait"><b>06 / MOOD</b></div></div>
+          <div class="inspire-tile tile-g"><div class="portrait"><b>07 / TYPE</b></div></div>
+          <div class="inspire-tile tile-h"><div class="portrait"><b>08 / DETAIL</b></div></div>
+          <h2 class="inspiration-title">Find Inspiration<br><em>Wherever You Are</em><small>Look closer. Think differently. Make something.</small></h2>
+          <svg class="scribble-line" viewBox="0 0 1000 600" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M110 300 C210 250 180 430 320 390 S445 305 500 335 S620 420 700 355 S805 240 875 270 C930 295 860 345 825 320"/>
+          </svg>
+        </div>
+        <div class="inspiration-bottom">
+          <span>Inspiration is everywhere</span>
+          <span>04 / The creative process</span>
+        </div>
+      </div>
+    </section>
+
     <section class="section-pad about-section" id="about">
       <div class="shell">
         <div class="about-top reveal">
-          <span class="eyebrow">Beyond the pixels / 02</span>
+          <span class="eyebrow">Beyond the pixels / 04</span>
           <span class="mono" style="font-size:9px;color:#aaaabd">A LITTLE ABOUT ME ↘</span>
         </div>
         <div class="about-grid">
@@ -793,6 +1119,148 @@
         item.addEventListener("pointerenter", () => cursorOrb.classList.add("active"));
         item.addEventListener("pointerleave", () => cursorOrb.classList.remove("active"));
       });
+    }
+
+    // Move the original hero project cards into the pinned gallery scene.
+    const originalOrbit = document.querySelector(".hero .orbit-wrap");
+    const galleryStage = document.getElementById("gallery-stage");
+    if (originalOrbit && galleryStage) galleryStage.appendChild(originalOrbit);
+
+    // Scroll-driven arc-to-grid transition, modelled on the first reference video.
+    const galleryScene = document.querySelector(".gallery-sequence");
+    const galleryCards = galleryStage ? Array.from(galleryStage.querySelectorAll(".orbit-card")) : [];
+    const galleryLabels = galleryStage ? Array.from(galleryStage.querySelectorAll(".orbit-label")) : [];
+    const progressFill = document.getElementById("gallery-progress-fill");
+    const clamp01 = value => Math.max(0, Math.min(1, value));
+    const mix = (a,b,t) => a + (b-a)*t;
+    const smoothstep = value => {
+      const t = clamp01(value);
+      return t*t*(3-2*t);
+    };
+
+    function updateGalleryScene() {
+      if (!galleryScene || !galleryStage || !galleryCards.length) return;
+      const rect = galleryScene.getBoundingClientRect();
+      const travel = Math.max(1, galleryScene.offsetHeight - galleryStage.closest(".gallery-sticky").offsetHeight);
+      const rawProgress = clamp01((-rect.top) / travel);
+      const morph = smoothstep((rawProgress - 0.04) / 0.78);
+      const width = galleryStage.clientWidth;
+      const height = galleryStage.clientHeight;
+      const mobile = window.innerWidth < 650;
+      const last = Math.max(1, galleryCards.length - 1);
+
+      galleryCards.forEach((card,index) => {
+        const normalized = (index - last/2) / (last/2);
+        const distance = Math.abs(normalized);
+        const arcX = normalized * width * (mobile ? .47 : .42);
+        const arcY = Math.pow(distance,1.55) * height * .17 - height * .025;
+        const arcZ = (1-distance) * 185 - 28;
+        const arcRY = -normalized * 40;
+        const arcRZ = normalized * 7;
+        const arcScale = 1 - distance * .14;
+
+        let gridX,gridY;
+        if (mobile) {
+          const col = index % 2;
+          const row = Math.floor(index / 2);
+          gridX = (col === 0 ? -.225 : .225) * width;
+          gridY = (row - 1) * height * .225;
+        } else if (index < 3) {
+          gridX = (index - 1) * width * .285;
+          gridY = -height * .17;
+        } else {
+          gridX = (index - 3.5) * width * .285;
+          gridY = height * .17;
+        }
+
+        const finalScale = mobile ? .72 : .78;
+        const x = mix(arcX,gridX,morph);
+        const y = mix(arcY,gridY,morph);
+        const z = mix(arcZ,0,morph);
+        const ry = mix(arcRY,0,morph);
+        const rz = mix(arcRZ,(index%2 ? 1.2 : -1.2),morph);
+        const scale = mix(arcScale,finalScale,morph);
+        card.style.transform = "translate(-50%,-50%) translate3d(" + x + "px," + y + "px," + z + "px) rotateY(" + ry + "deg) rotateZ(" + rz + "deg) scale(" + scale + ")";
+        card.style.zIndex = String(10 + Math.round((1-distance)*10));
+      });
+
+      galleryLabels.forEach(label => {
+        label.style.opacity = String(1 - morph);
+        label.style.transform = "translateY(" + (morph * -12) + "px)";
+      });
+      if (progressFill) progressFill.style.width = (rawProgress * 100) + "%";
+    }
+
+    // Give the stacked case-study cards a soft lift as each one takes its turn.
+    const stackedPanels = Array.from(document.querySelectorAll(".work-panel"));
+    function updateStackedPanels() {
+      stackedPanels.forEach((panel,index) => {
+        const rect = panel.getBoundingClientRect();
+        const enter = clamp01((window.innerHeight * .88 - rect.top) / (window.innerHeight * .52));
+        const y = (1-enter) * 38;
+        const scale = .965 + enter * .035;
+        panel.style.transform = "translate3d(0," + y + "px,0) scale(" + scale + ")";
+        panel.style.zIndex = String(20 + index);
+      });
+    }
+
+    // Scroll-driven updates are batched into one animation frame.
+    let sceneFrame = 0;
+    function scheduleSceneUpdate() {
+      if (sceneFrame) return;
+      sceneFrame = requestAnimationFrame(() => {
+        updateGalleryScene();
+        updateStackedPanels();
+        sceneFrame = 0;
+      });
+    }
+    window.addEventListener("scroll",scheduleSceneUpdate,{passive:true});
+    window.addEventListener("resize",scheduleSceneUpdate);
+    updateGalleryScene();
+    updateStackedPanels();
+
+    // Animate the hand-drawn line and tiles when the inspiration panel enters view.
+    const inspirationSection = document.querySelector(".inspiration-section");
+    if (inspirationSection && "IntersectionObserver" in window) {
+      const inspirationObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            inspirationSection.classList.add("is-visible");
+            inspirationObserver.unobserve(entry.target);
+          }
+        });
+      },{threshold:.18});
+      inspirationObserver.observe(inspirationSection);
+    }
+
+    // Reveal the dark editorial panel with a soft curtain-like transition.
+    const darkAbout = document.querySelector(".about-section");
+    if (darkAbout && "IntersectionObserver" in window) {
+      const aboutObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            darkAbout.classList.add("is-in-view");
+            aboutObserver.unobserve(entry.target);
+          }
+        });
+      },{threshold:.08});
+      aboutObserver.observe(darkAbout);
+    }
+
+    // Update the small left-side index to reflect the current section.
+    const indexLinks = Array.from(document.querySelectorAll(".side-index a[data-section]"));
+    const observedSections = indexLinks
+      .map(link => document.getElementById(link.dataset.section))
+      .filter(Boolean);
+    if ("IntersectionObserver" in window && indexLinks.length) {
+      const sectionObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            indexLinks.forEach(link => link.classList.toggle("is-active",link.dataset.section === entry.target.id));
+          }
+        });
+      },{rootMargin:"-35% 0px -45% 0px",threshold:0});
+      observedSections.forEach(section => sectionObserver.observe(section));
     }
 
     // Current year
