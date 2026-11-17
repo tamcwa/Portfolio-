@@ -1191,6 +1191,219 @@
       }
     }
 
+  
+
+    /* Reference-inspired continuous horizontal project carousel */
+    .combined-hero-gallery {
+      height: 172vh;
+      min-height: 1120px;
+    }
+    .combined-hero-gallery .gallery-sticky {
+      display: block;
+      height: calc(100svh - var(--header));
+      min-height: 620px;
+      padding: 0;
+      overflow: hidden;
+    }
+    .combined-hero-gallery .hero-top {
+      position: absolute;
+      top: 16px;
+      left: 50%;
+      z-index: 10;
+      transform: translateX(-50%);
+    }
+    .combined-hero-gallery .combined-title {
+      top: 31%;
+      left: 50%;
+      z-index: 30;
+      width: min(88%,1100px);
+      transform: translate(-50%,-50%);
+    }
+    .combined-hero-gallery .combined-title.reveal {
+      transform: translate(-50%,calc(-50% + 22px));
+    }
+    .combined-hero-gallery .combined-title.reveal.is-visible {
+      transform: translate(-50%,-50%);
+    }
+    .combined-hero-gallery .combined-title h1 {
+      font-size: clamp(58px,8vw,122px);
+      line-height: .78;
+      margin-top: 12px;
+    }
+    .combined-hero-gallery .combined-title .hero-caption {
+      margin-top: 13px;
+      max-width: 520px;
+    }
+    .combined-hero-gallery .gallery-stage {
+      position: absolute;
+      z-index: 4;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      min-height: 0;
+      max-width: none;
+      margin: 0;
+      overflow: hidden;
+    }
+    .combined-hero-gallery .gallery-motion-stage,
+    .combined-hero-gallery .gallery-stage .orbit-wrap {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      margin: 0;
+      overflow: hidden;
+      perspective: 1400px;
+      transform-style: preserve-3d;
+    }
+    .combined-hero-gallery .gallery-stage .orbit-label {
+      top: auto;
+      bottom: 20%;
+      z-index: 7;
+      opacity: .96;
+      animation: label-drift 5s ease-in-out infinite;
+    }
+    .combined-hero-gallery .gallery-stage .orbit-label.label-a { left: 8%; }
+    .combined-hero-gallery .gallery-stage .orbit-label.label-b { right: 8%; }
+    .combined-hero-gallery .gallery-stage .orbit-label.label-c { left: 42%; bottom: 12%; }
+    .showcase-viewport {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 56%;
+      height: clamp(220px,34vw,340px);
+      transform: translateY(-50%);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      perspective: 1400px;
+      perspective-origin: 50% 50%;
+      -webkit-mask-image: linear-gradient(90deg,transparent 0%,#000 5%,#000 95%,transparent 100%);
+      mask-image: linear-gradient(90deg,transparent 0%,#000 5%,#000 95%,transparent 100%);
+    }
+    .showcase-track {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      display: flex;
+      align-items: center;
+      width: max-content;
+      transform: translate3d(-25%,-50%,0);
+      animation: showcase-flow 32s linear infinite;
+      will-change: transform;
+    }
+    .showcase-group {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      gap: clamp(14px,1.8vw,24px);
+      padding-right: clamp(14px,1.8vw,24px);
+      transform-style: preserve-3d;
+    }
+    .showcase-group .orbit-card {
+      position: relative;
+      inset: auto;
+      left: auto;
+      top: auto;
+      flex: 0 0 auto;
+      width: clamp(175px,17vw,250px);
+      aspect-ratio: 1.18 / 1;
+      height: auto;
+      padding: 7px;
+      border: 6px solid rgba(255,255,255,.94);
+      border-radius: 7px;
+      background: #fff;
+      box-shadow: 0 22px 48px rgba(44,49,86,.18);
+      transform-origin: center center;
+      animation: none;
+      transition: transform .35s ease,box-shadow .35s ease;
+      backface-visibility: hidden;
+    }
+    .showcase-group .orbit-card:nth-child(1) {
+      transform: translateY(22px) rotateZ(-12deg) rotateY(13deg) scale(.88);
+    }
+    .showcase-group .orbit-card:nth-child(2) {
+      transform: translateY(-5px) rotateZ(-6deg) rotateY(7deg) scale(.96);
+    }
+    .showcase-group .orbit-card:nth-child(3) {
+      transform: translateY(-18px) rotateZ(0deg) translateZ(55px) scale(1.07);
+      z-index: 4;
+    }
+    .showcase-group .orbit-card:nth-child(4) {
+      transform: translateY(-5px) rotateZ(6deg) rotateY(-7deg) scale(.96);
+    }
+    .showcase-group .orbit-card:nth-child(5) {
+      transform: translateY(22px) rotateZ(12deg) rotateY(-13deg) scale(.88);
+    }
+    .showcase-group .orbit-card:hover {
+      z-index: 8;
+      transform: translateY(-25px) rotateZ(0deg) scale(1.08);
+      box-shadow: 0 30px 60px rgba(44,49,86,.24);
+    }
+    .showcase-group .mock-top { height: 12px; }
+    .showcase-group .mock-art { height: calc(100% - 12px); }
+    .showcase-group .mock-art .big { font-size: clamp(25px,3vw,39px); }
+    .showcase-group[aria-hidden="true"] { pointer-events: none; }
+    .showcase-track:hover,
+    .showcase-viewport:focus-within .showcase-track {
+      animation-play-state: paused;
+    }
+    @keyframes showcase-flow {
+      from { transform: translate3d(-25%,-50%,0); }
+      to { transform: translate3d(-75%,-50%,0); }
+    }
+    .combined-gallery-foot {
+      bottom: 12px;
+    }
+    @media (max-width: 1050px) {
+      .combined-hero-gallery { height: 160vh; min-height: 1000px; }
+      .combined-hero-gallery .combined-title { top: 30%; width: 91%; }
+      .showcase-viewport { top: 59%; height: clamp(185px,31vw,270px); }
+      .showcase-group .orbit-card { width: clamp(145px,18vw,190px); }
+      .showcase-group .mock-art .big { font-size: clamp(20px,3vw,30px); }
+    }
+    @media (max-width: 650px) {
+      .combined-hero-gallery { height: 145vh; min-height: 900px; }
+      .combined-hero-gallery .gallery-sticky { min-height: 620px; }
+      .combined-hero-gallery .hero-top { top: 13px; }
+      .combined-hero-gallery .hero-top .eyebrow { font-size: 6px; }
+      .combined-hero-gallery .hero-status { font-size: 6px; }
+      .combined-hero-gallery .combined-title { top: 31%; width: 96%; }
+      .combined-hero-gallery .combined-title .hero-pretitle { font-size: 6px; padding: 5px 8px; }
+      .combined-hero-gallery .combined-title h1 { font-size: clamp(42px,11.5vw,64px); line-height: .83; }
+      .combined-hero-gallery .combined-title .hero-caption { max-width: 300px; font-size: 9px; margin-top: 8px; }
+      .showcase-viewport {
+        top: 64%;
+        height: 190px;
+        -webkit-mask-image: linear-gradient(90deg,transparent 0%,#000 3%,#000 97%,transparent 100%);
+        mask-image: linear-gradient(90deg,transparent 0%,#000 3%,#000 97%,transparent 100%);
+      }
+      .showcase-track { animation-duration: 25s; }
+      .showcase-group { gap: 10px; padding-right: 10px; }
+      .showcase-group .orbit-card { width: 128px; padding: 4px; border-width: 4px; }
+      .showcase-group .orbit-card:nth-child(1) { transform: translateY(12px) rotateZ(-10deg) scale(.84); }
+      .showcase-group .orbit-card:nth-child(2) { transform: translateY(-2px) rotateZ(-5deg) scale(.93); }
+      .showcase-group .orbit-card:nth-child(3) { transform: translateY(-9px) scale(1.02); }
+      .showcase-group .orbit-card:nth-child(4) { transform: translateY(-2px) rotateZ(5deg) scale(.93); }
+      .showcase-group .orbit-card:nth-child(5) { transform: translateY(12px) rotateZ(10deg) scale(.84); }
+      .showcase-group .mock-top { height: 9px; font-size: 5px; }
+      .showcase-group .mock-dots i { width: 3px; height: 3px; }
+      .showcase-group .mock-art { height: calc(100% - 9px); padding: 6px; }
+      .showcase-group .mock-art .mini,.showcase-group .mock-art .foot { font-size: 4px; }
+      .showcase-group .mock-art .big { font-size: 17px; }
+      .combined-hero-gallery .gallery-stage .orbit-label { display: none; }
+      .combined-gallery-foot {
+        grid-template-columns: 1fr auto;
+        bottom: 8px;
+        font-size: 5px;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .showcase-track { animation: none; transform: translate3d(-25%,-50%,0); }
+      .showcase-viewport { overflow-x: auto; }
+    }
+
   </style>
 </head>
 <body>
@@ -1235,40 +1448,63 @@
 
         <div class="gallery-stage" id="gallery">
           <div class="gallery-motion-stage" id="gallery-motion-stage">
-      <div class="orbit-wrap" aria-label="Animated arc gallery of selected design projects">
-        <span class="orbit-label label-a">UI / UX</span>
-        <span class="orbit-label label-b">Graphic design</span>
-        <span class="orbit-label label-c">Motion &amp; visual</span>
-        <div class="orbit-track" id="orbit-track">
-          <div class="orbit-card card-1 tilt-target">
-            <div class="mock-top"><span>STUDIO / 001</span><span class="mock-dots"><i></i><i></i><i></i></span></div>
-            <div class="mock-art art-a"><span class="mini">FORM STUDY / 2026</span><span class="big">FORM<br>FOLLOWS<br>FEELING</span><span class="sun"></span><span class="foot"><span>IDENTITY</span><span>01—04</span></span></div>
-          </div>
-          <div class="orbit-card card-2 tilt-target">
-            <div class="mock-top"><span>DIGITAL / 002</span><span class="mock-dots"><i></i><i></i><i></i></span></div>
-            <div class="mock-art art-b"><span class="mini">A NEW PERSPECTIVE</span><span class="bubble"></span><span class="big">BEYOND<br>THE GRID</span><span class="foot"><span>EXPERIMENT</span><span>02—04</span></span></div>
-          </div>
-          <div class="orbit-card card-3 tilt-target">
-            <div class="mock-top"><span>SELECTED / 003</span><span class="mock-dots"><i></i><i></i><i></i></span></div>
-            <div class="mock-art art-c"><span class="mini">DESIGN NOTES — 2026</span><span class="big">MAKE<br>IT<br>MATTER<span style="color:#315bfa">.</span></span><span class="cube"></span><span class="foot"><span>ART DIRECTION</span><span>03—04</span></span></div>
-          </div>
-          <div class="orbit-card card-4 tilt-target">
-            <div class="mock-top"><span>EDITORIAL / 004</span><span class="mock-dots"><i></i><i></i><i></i></span></div>
-            <div class="mock-art art-d"><span class="mini">OBJECTS &amp; STORIES</span><span class="big">A LITTLE<br>MORE<br>COLOUR</span><span class="face"></span><span class="foot"><span>EDITORIAL</span><span>04—04</span></span></div>
-          </div>
-          <div class="orbit-card card-5 tilt-target">
-            <div class="mock-top"><span>CAMPAIGN / 005</span><span class="mock-dots"><i></i><i></i><i></i></span></div>
-            <div class="mock-art art-e"><span class="mini">AN OPEN CANVAS</span><span class="big">NEW<br>SHAPES<br>NEW IDEAS</span><span class="rings"></span><span class="foot"><span>CAMPAIGN</span><span>05—05</span></span></div>
+            <div class="orbit-wrap" aria-label="Continuously scrolling project showcase">
+              <span class="orbit-label label-a">UI / UX</span>
+              <span class="orbit-label label-b">Graphic design</span>
+              <span class="orbit-label label-c">Motion &amp; visual</span>
+              <div class="showcase-viewport">
+                <div class="showcase-track" id="showcase-track">
+                  <div class="showcase-group" id="showcase-group">
+                    <div class="orbit-card card-1 tilt-target">
+                                <div class="mock-top"><span>STUDIO / 001</span><span class="mock-dots"><i></i><i></i><i></i></span></div>
+                                <div class="mock-art art-a"><span class="mini">FORM STUDY / 2026</span><span class="big">FORM<br>FOLLOWS<br>FEELING</span><span class="sun"></span><span class="foot"><span>IDENTITY</span><span>01—04</span></span></div>
+                              </div>
+                              <div class="orbit-card card-2 tilt-target">
+                                <div class="mock-top"><span>DIGITAL / 002</span><span class="mock-dots"><i></i><i></i><i></i></span></div>
+                                <div class="mock-art art-b"><span class="mini">A NEW PERSPECTIVE</span><span class="bubble"></span><span class="big">BEYOND<br>THE GRID</span><span class="foot"><span>EXPERIMENT</span><span>02—04</span></span></div>
+                              </div>
+                              <div class="orbit-card card-3 tilt-target">
+                                <div class="mock-top"><span>SELECTED / 003</span><span class="mock-dots"><i></i><i></i><i></i></span></div>
+                                <div class="mock-art art-c"><span class="mini">DESIGN NOTES — 2026</span><span class="big">MAKE<br>IT<br>MATTER<span style="color:#315bfa">.</span></span><span class="cube"></span><span class="foot"><span>ART DIRECTION</span><span>03—04</span></span></div>
+                              </div>
+                              <div class="orbit-card card-4 tilt-target">
+                                <div class="mock-top"><span>EDITORIAL / 004</span><span class="mock-dots"><i></i><i></i><i></i></span></div>
+                                <div class="mock-art art-d"><span class="mini">OBJECTS &amp; STORIES</span><span class="big">A LITTLE<br>MORE<br>COLOUR</span><span class="face"></span><span class="foot"><span>EDITORIAL</span><span>04—04</span></span></div>
+                              </div>
+                              <div class="orbit-card card-5 tilt-target">
+                                <div class="mock-top"><span>CAMPAIGN / 005</span><span class="mock-dots"><i></i><i></i><i></i></span></div>
+                                <div class="mock-art art-e"><span class="mini">AN OPEN CANVAS</span><span class="big">NEW<br>SHAPES<br>NEW IDEAS</span><span class="rings"></span><span class="foot"><span>CAMPAIGN</span><span>05—05</span></span></div>
+                              </div>
+                  </div>
+                  <div class="showcase-group" aria-hidden="true">
+                    <div class="orbit-card card-1 tilt-target duplicate-card">
+                                <div class="mock-top"><span>STUDIO / 001</span><span class="mock-dots"><i></i><i></i><i></i></span></div>
+                                <div class="mock-art art-a"><span class="mini">FORM STUDY / 2026</span><span class="big">FORM<br>FOLLOWS<br>FEELING</span><span class="sun"></span><span class="foot"><span>IDENTITY</span><span>01—04</span></span></div>
+                              </div>
+                              <div class="orbit-card card-2 tilt-target duplicate-card">
+                                <div class="mock-top"><span>DIGITAL / 002</span><span class="mock-dots"><i></i><i></i><i></i></span></div>
+                                <div class="mock-art art-b"><span class="mini">A NEW PERSPECTIVE</span><span class="bubble"></span><span class="big">BEYOND<br>THE GRID</span><span class="foot"><span>EXPERIMENT</span><span>02—04</span></span></div>
+                              </div>
+                              <div class="orbit-card card-3 tilt-target duplicate-card">
+                                <div class="mock-top"><span>SELECTED / 003</span><span class="mock-dots"><i></i><i></i><i></i></span></div>
+                                <div class="mock-art art-c"><span class="mini">DESIGN NOTES — 2026</span><span class="big">MAKE<br>IT<br>MATTER<span style="color:#315bfa">.</span></span><span class="cube"></span><span class="foot"><span>ART DIRECTION</span><span>03—04</span></span></div>
+                              </div>
+                              <div class="orbit-card card-4 tilt-target duplicate-card">
+                                <div class="mock-top"><span>EDITORIAL / 004</span><span class="mock-dots"><i></i><i></i><i></i></span></div>
+                                <div class="mock-art art-d"><span class="mini">OBJECTS &amp; STORIES</span><span class="big">A LITTLE<br>MORE<br>COLOUR</span><span class="face"></span><span class="foot"><span>EDITORIAL</span><span>04—04</span></span></div>
+                              </div>
+                              <div class="orbit-card card-5 tilt-target duplicate-card">
+                                <div class="mock-top"><span>CAMPAIGN / 005</span><span class="mock-dots"><i></i><i></i><i></i></span></div>
+                                <div class="mock-art art-e"><span class="mini">AN OPEN CANVAS</span><span class="big">NEW<br>SHAPES<br>NEW IDEAS</span><span class="rings"></span><span class="foot"><span>CAMPAIGN</span><span>05—05</span></span></div>
+                              </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <span class="orbit-shadow"></span>
-      </div>
 
-
-          </div>
-        </div>
-
-        <div class="gallery-foot combined-gallery-foot">
+<div class="gallery-foot combined-gallery-foot">
           <span>SELECTED EXPLORATIONS / 2023—2026</span>
           <span class="combined-scroll-cue">SCROLL TO EXPLORE <i>↓</i></span>
           <span class="gallery-progress"><span id="gallery-progress-fill"></span></span>
@@ -1540,138 +1776,41 @@
       });
     }
 
-    // The hero title and 3D gallery now share one pinned homepage sequence.
+    // The hero uses a seamless horizontal project conveyor, as in the supplied reference clip.
     const galleryStage = document.getElementById("gallery-motion-stage");
-
-    // Scroll-driven arc-to-grid transition, modelled on the first reference video.
     const galleryScene = document.querySelector(".combined-hero-gallery");
-    const galleryCards = galleryStage ? Array.from(galleryStage.querySelectorAll(".orbit-card")) : [];
-    const galleryLabels = galleryStage ? Array.from(galleryStage.querySelectorAll(".orbit-label")) : [];
     const progressFill = document.getElementById("gallery-progress-fill");
-    const clamp01 = value => Math.max(0, Math.min(1, value));
-    const mix = (a,b,t) => a + (b-a)*t;
-    const smoothstep = value => {
-      const t = clamp01(value);
-      return t*t*(3-2*t);
-    };
+    const showcaseTrack = document.getElementById("showcase-track");
+    const reduceShowcaseMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    function updateGalleryScene() {
-      if (!galleryScene || !galleryStage || !galleryCards.length) return;
-
-      const rect = galleryScene.getBoundingClientRect();
-      const sticky = galleryStage.closest(".gallery-sticky");
-      const travel = Math.max(1, galleryScene.offsetHeight - (sticky ? sticky.offsetHeight : window.innerHeight));
-      const rawProgress = clamp01((-rect.top) / travel);
-      const morph = smoothstep((rawProgress - 0.04) / 0.78);
-      const width = galleryStage.clientWidth || window.innerWidth;
-      const height = galleryStage.clientHeight || (window.innerHeight - 76);
-      const mobile = window.innerWidth < 650;
-      const tablet = window.innerWidth <= 1050;
-
-      // Percent-based card centres keep all five complete cards inside the viewport.
-      // Initial arc: outer left/right, upper inner-left/right, and a foreground centre card.
-      const desktopArc = [
-        [.085,.55],  // left outer
-        [.285,.17],  // upper-left
-        [.50,.80],   // front / lower centre
-        [.715,.17],  // upper-right
-        [.915,.55]   // right outer
-      ];
-      // Final grid: two upper cards, two side cards and one bottom-centre card.
-      const desktopGrid = [
-        [.18,.17],
-        [.075,.56],
-        [.50,.80],
-        [.925,.56],
-        [.82,.17]
-      ];
-
-      const tabletArc = [
-        [.13,.57],
-        [.29,.18],
-        [.50,.81],
-        [.71,.18],
-        [.87,.57]
-      ];
-      const tabletGrid = [
-        [.20,.17],
-        [.13,.58],
-        [.50,.82],
-        [.87,.58],
-        [.80,.17]
-      ];
-
-      // On narrow screens, use a compact fan beneath the heading rather than
-      // allowing thumbnails to sit behind the multi-line title.
-      const mobileArc = [
-        [.12,.78],
-        [.31,.72],
-        [.50,.69],
-        [.69,.72],
-        [.88,.78]
-      ];
-      const mobileGrid = [
-        [.12,.81],
-        [.31,.75],
-        [.50,.72],
-        [.69,.75],
-        [.88,.81]
-      ];
-
-      const arc = mobile ? mobileArc : tablet ? tabletArc : desktopArc;
-      const grid = mobile ? mobileGrid : tablet ? tabletGrid : desktopGrid;
-
-      galleryCards.forEach((card,index) => {
-        const from = arc[index];
-        const to = grid[index];
-        let currentX;
-        let currentY;
-
-        // Cards 2 and 4 move outward along the top edge first, then descend
-        // along the outer sides; they never cut across the centre headline.
-        if (!mobile && (index === 1 || index === 3)) {
-          const sideX = index === 1 ? (tablet ? .13 : .075) : (tablet ? .87 : .925);
-          const horizontalPhase = smoothstep(morph / .42);
-          const verticalPhase = smoothstep((morph - .42) / .58);
-          const xAtTop = mix(from[0],sideX,horizontalPhase);
-          currentX = mix(xAtTop,sideX,verticalPhase);
-          currentY = mix(from[1],to[1],verticalPhase);
-        } else {
-          currentX = mix(from[0],to[0],morph);
-          currentY = mix(from[1],to[1],morph);
-        }
-
-        const x = (currentX - .5) * width;
-        const y = (currentY - .5) * height;
-
-        // The arc has visible perspective: outside cards recede, inner cards
-        // angle toward the viewer, and the middle card sits closest to camera.
-        const yaw = [39,22,0,-22,-39][index] * (morph < .5 ? 1 - morph * 1.15 : 0);
-        const roll = [-8,-4,0,4,8][index] * (1 - morph);
-        const depth = ([-115,35,205,35,-115][index]) * (1 - morph);
-        const arcScale = mobile
-          ? [.47,.53,.57,.53,.47][index]
-          : tablet
-            ? [.66,.76,.84,.76,.66][index]
-            : [.78,.87,.98,.87,.78][index];
-        const gridScale = mobile
-          ? [.44,.45,.47,.45,.44][index]
-          : tablet
-            ? [.58,.61,.64,.61,.58][index]
-            : [.72,.74,.78,.74,.72][index];
-        const scale = mix(arcScale,gridScale,morph);
-        const transform = "translate(-50%,-50%) translate3d(" + x + "px," + y + "px," + depth + "px) rotateY(" + yaw + "deg) rotateZ(" + roll + "deg) scale(" + scale + ")";
-        card.style.transform = transform;
-        card.style.zIndex = String(20 + [0,1,5,1,0][index]);
-      });
-
-      galleryLabels.forEach(label => {
-        label.style.opacity = String(1 - morph);
-        label.style.transform = "translateY(" + (morph * -12) + "px)";
-      });
-      if (progressFill) progressFill.style.width = (rawProgress * 100) + "%";
+    // The second set of cards is a visual loop duplicate; hide it from assistive technology.
+    // The marquee itself runs in CSS and can be paused by hovering or focusing the gallery.
+    if (showcaseTrack) {
+      showcaseTrack.setAttribute("aria-label","Scrolling selected design projects");
+      if (reduceShowcaseMotion) showcaseTrack.style.animationPlayState = "paused";
     }
 
+    function updateGalleryScene() {
+      if (!galleryScene || !progressFill) return;
+      const rect = galleryScene.getBoundingClientRect();
+      const sticky = galleryScene.querySelector(".gallery-sticky");
+      const travel = Math.max(1, galleryScene.offsetHeight - (sticky ? sticky.offsetHeight : window.innerHeight));
+      const rawProgress = clamp01((-rect.top) / travel);
+      progressFill.style.width = (rawProgress * 100) + "%";
+    }
+
+    let sceneFrame = 0;
+    function scheduleSceneUpdate() {
+      if (sceneFrame) return;
+      sceneFrame = requestAnimationFrame(() => {
+        updateGalleryScene();
+        updateStackedPanels();
+        sceneFrame = 0;
+      });
+    }
+    window.addEventListener("scroll",scheduleSceneUpdate,{passive:true});
+    window.addEventListener("resize",scheduleSceneUpdate);
+    updateGalleryScene();
     // Give the stacked case-study cards a soft lift as each one takes its turn.
     const stackedPanels = Array.from(document.querySelectorAll(".work-panel"));
     function updateStackedPanels() {
