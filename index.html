@@ -1099,6 +1099,50 @@
       transform: translate(-50%, -50%);
     }
 
+  
+
+    /* Central headline safe zone: cards frame the title instead of crossing over it. */
+    .combined-hero-gallery .combined-title {
+      z-index: 30;
+      top: 50%;
+      left: 50%;
+      width: min(76%, 1050px);
+      pointer-events: none;
+    }
+    .combined-hero-gallery .combined-title.reveal {
+      transform: translate(-50%, calc(-50% + 22px));
+    }
+    .combined-hero-gallery .combined-title.reveal.is-visible {
+      transform: translate(-50%, -50%);
+    }
+    .combined-hero-gallery .gallery-stage {
+      z-index: 3;
+    }
+    .combined-hero-gallery .gallery-stage .orbit-card {
+      z-index: 1;
+      transform-origin: center center;
+    }
+    @media (max-width: 1050px) {
+      .combined-hero-gallery .combined-title { width: 88%; }
+    }
+    @media (max-width: 850px) {
+      .combined-hero-gallery .gallery-stage .orbit-card {
+        width: clamp(132px, 18vw, 190px);
+      }
+      .combined-hero-gallery .gallery-stage .orbit-card.card-3 {
+        width: clamp(132px, 18vw, 190px);
+      }
+    }
+    @media (max-width: 560px) {
+      .combined-hero-gallery .combined-title { width: 96%; }
+      .combined-hero-gallery .gallery-stage .orbit-card {
+        width: clamp(88px, 25vw, 128px);
+      }
+      .combined-hero-gallery .gallery-stage .orbit-card.card-3 {
+        width: clamp(88px, 25vw, 128px);
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -1467,51 +1511,80 @@
       const mobile = window.innerWidth < 650;
       const last = Math.max(1, galleryCards.length - 1);
 
+      const tablet = window.innerWidth <= 1050;
       galleryCards.forEach((card,index) => {
-        const normalized = (index - last/2) / (last/2);
-        const distance = Math.abs(normalized);
-        const arcX = normalized * width * (mobile ? .47 : .42);
-        const arcY = Math.pow(distance,1.55) * height * .17 - height * .025;
-        const arcZ = (1-distance) * 185 - 28;
-        const arcRY = -normalized * 40;
-        const arcRZ = normalized * 7;
-        const arcScale = 1 - distance * .14;
-
-        // Final spread: keep the title centred, with cards framing it above and below.
-        let gridX,gridY;
+        // Both the starting arc and final grid orbit the central title.
+        // No card is allowed to travel through the central headline safe zone.
+        let arcTarget;
+        let gridTarget;
         if (mobile) {
-          const mobileTargets = [
-            [-.30,-.30],
-            [-.31,.34],
-            [0,.38],
-            [.31,.34],
-            [.30,-.30]
-          ];
-          [gridX,gridY] = mobileTargets[index];
-          gridX *= width;
-          gridY *= height;
+          arcTarget = [
+            [-.31,-.37], // upper-left
+            [-.33,.31],  // lower-left
+            [0,.39],     // lower-centre
+            [.33,.31],   // lower-right
+            [.31,-.37]   // upper-right
+          ][index];
+          gridTarget = [
+            [-.29,-.36],
+            [-.31,.33],
+            [0,.39],
+            [.31,.33],
+            [.29,-.36]
+          ][index];
+        } else if (tablet) {
+          arcTarget = [
+            [-.35,-.36],
+            [-.39,.31],
+            [0,.40],
+            [.39,.31],
+            [.35,-.36]
+          ][index];
+          gridTarget = [
+            [-.32,-.36],
+            [-.36,.32],
+            [0,.40],
+            [.36,.32],
+            [.32,-.36]
+          ][index];
         } else {
-          const spreadTargets = [
-            [-.25,-.24],  // upper-left
-            [-.35,.19],   // lower-left
-            [0,.35],      // bottom-centre
-            [.35,.19],    // lower-right
-            [.25,-.24]    // upper-right
-          ];
-          [gridX,gridY] = spreadTargets[index];
-          gridX *= width;
-          gridY *= height;
+          // U-shaped arc around the headline: upper corners, outer sides, bottom centre.
+          arcTarget = [
+            [-.39,-.34],
+            [-.43,.025],
+            [0,.345],
+            [.43,.025],
+            [.39,-.34]
+          ][index];
+          // Flatten into the final five-point grid while staying outside the title area.
+          gridTarget = [
+            [-.36,-.34], // upper-left
+            [-.43,.055], // left-middle
+            [0,.335],    // bottom-centre
+            [.43,.055],  // right-middle
+            [.36,-.34]   // upper-right
+          ][index];
         }
 
-        const finalScale = mobile ? .56 : .76;
+        const arcX = arcTarget[0] * width;
+        const arcY = arcTarget[1] * height;
+        const gridX = gridTarget[0] * width;
+        const gridY = gridTarget[1] * height;
+        const sideDistance = Math.abs(index - 2);
+        const arcZ = 110 + (2 - sideDistance) * 28;
+        const arcRY = (index - 2) * -24;
+        const arcRZ = (index - 2) * 5.5;
+        const arcScale = mobile ? .72 : tablet ? .78 : .94;
+        const finalScale = mobile ? .50 : tablet ? .68 : .84;
+
         const x = mix(arcX,gridX,morph);
         const y = mix(arcY,gridY,morph);
         const z = mix(arcZ,0,morph);
         const ry = mix(arcRY,0,morph);
-        const rz = mix(arcRZ,(index%2 ? 1.2 : -1.2),morph);
+        const rz = mix(arcRZ,(index%2 ? 1 : -1) * .8,morph);
         const scale = mix(arcScale,finalScale,morph);
         card.style.transform = "translate(-50%,-50%) translate3d(" + x + "px," + y + "px," + z + "px) rotateY(" + ry + "deg) rotateZ(" + rz + "deg) scale(" + scale + ")";
-        card.style.zIndex = String(10 + Math.round((1-distance)*10));
+        card.style.zIndex = String(10 + (2 - sideDistance));
       });
 
       galleryLabels.forEach(label => {
