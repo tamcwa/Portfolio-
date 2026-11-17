@@ -1087,6 +1087,18 @@
       .combined-gallery-foot > span:last-child { display: none; }
     }
 
+  
+    /* Keep the hero headline geometrically centred while its reveal animation runs.
+       The generic .reveal transform must not override the title's centring transform. */
+    .combined-hero-gallery .combined-title.reveal {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, calc(-50% + 22px));
+    }
+    .combined-hero-gallery .combined-title.reveal.is-visible {
+      transform: translate(-50%, -50%);
+    }
+
   </style>
 </head>
 <body>
