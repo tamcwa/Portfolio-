@@ -1053,7 +1053,10 @@
       .combined-hero-gallery .hero-top { top: 13px; }
       .combined-hero-gallery .hero-top .eyebrow { font-size: 6px; }
       .combined-hero-gallery .hero-status { font-size: 6px; }
-      .combined-title { top: 48%; width: 96%; }
+      .combined-title {
+      z-index: 30;
+    }
+    .combined-title { top: 48%; width: 96%; }
       .combined-title .hero-pretitle { font-size: 6px; padding: 5px 8px; }
       .combined-title h1 { font-size: clamp(42px,11.2vw,62px); line-height: .83; }
       .combined-title h1 .stroke { -webkit-text-stroke-width: 1px; }
@@ -1477,11 +1480,11 @@
           gridY *= height;
         } else {
           const spreadTargets = [
-            [-.34,-.29],  // upper-left
-            [-.42,.20],   // lower-left
-            [0,.385],     // bottom-centre
-            [.42,.20],    // lower-right
-            [.34,-.29]    // upper-right
+            [-.25,-.24],  // upper-left
+            [-.35,.19],   // lower-left
+            [0,.35],      // bottom-centre
+            [.35,.19],    // lower-right
+            [.25,-.24]    // upper-right
           ];
           [gridX,gridY] = spreadTargets[index];
           gridX *= width;
