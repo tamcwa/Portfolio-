@@ -1143,6 +1143,24 @@
       }
     }
 
+  
+    /* Blue motion strip retained as a transition between the pinned homepage and case studies. */
+    .marquee {
+      position: relative;
+      z-index: 2;
+      margin-top: 0;
+      margin-bottom: clamp(72px,10vw,145px);
+      padding: 16px 0;
+      transform: rotate(-.7deg) scale(1.015);
+      box-shadow: 0 1px 0 rgba(49,91,250,.08);
+    }
+    .marquee-track { will-change: transform; }
+    .marquee span { font-size: clamp(12px,1vw,15px); }
+    @media (max-width: 560px) {
+      .marquee { padding: 12px 0; margin-bottom: 72px; }
+      .marquee span { padding-inline: 16px; font-size: 10px; }
+    }
+
   </style>
 </head>
 <body>
@@ -1228,6 +1246,13 @@
         </div>
       </div>
     </section>
+
+    <div class="marquee" aria-label="Visual design disciplines">
+      <div class="marquee-track" aria-hidden="true">
+        <span>VISUAL IDENTITY ✳ GRAPHIC DESIGN ✳ DIGITAL EXPERIENCES ✳ ART DIRECTION ✳</span>
+        <span>VISUAL IDENTITY ✳ GRAPHIC DESIGN ✳ DIGITAL EXPERIENCES ✳ ART DIRECTION ✳</span>
+      </div>
+    </div>
 
     <section class="section-pad work-section" id="work">
       <div class="shell">
@@ -1518,51 +1543,53 @@
         let arcTarget;
         let gridTarget;
         if (mobile) {
+          // Mobile: cards stay clear of the two-line title and paragraph.
           arcTarget = [
-            [-.31,-.37], // upper-left
-            [-.33,.31],  // lower-left
-            [0,.39],     // lower-centre
-            [.33,.31],   // lower-right
-            [.31,-.37]   // upper-right
+            [-.34,.42], // outer-left, lower
+            [-.34,.34], // left inner
+            [0,.31],    // front card below the headline
+            [.34,.34],  // right inner
+            [.34,.42]   // outer-right, lower
           ][index];
           gridTarget = [
-            [-.29,-.36],
-            [-.31,.33],
-            [0,.39],
-            [.31,.33],
-            [.29,-.36]
+            [-.34,-.37], // upper-left
+            [-.34,.18],  // left side, below title
+            [0,.40],     // bottom-centre
+            [.34,.18],   // right side, below title
+            [.34,-.37]   // upper-right
           ][index];
         } else if (tablet) {
+          // Tablet: compact arc beneath the title, then spread to the outer corners.
           arcTarget = [
-            [-.35,-.36],
-            [-.39,.31],
-            [0,.40],
-            [.39,.31],
-            [.35,-.36]
+            [-.42,.43],
+            [-.34,.35],
+            [0,.30],
+            [.34,.35],
+            [.42,.43]
           ][index];
           gridTarget = [
-            [-.32,-.36],
-            [-.36,.32],
-            [0,.40],
-            [.36,.32],
-            [.32,-.36]
+            [-.34,-.32],
+            [-.43,.06],
+            [0,.33],
+            [.43,.06],
+            [.34,-.32]
           ][index];
         } else {
-          // U-shaped arc around the headline: upper corners, outer sides, bottom centre.
+          // Initial state: a 3D crescent beneath the headline, with the centre card in front.
           arcTarget = [
-            [-.39,-.34],
-            [-.43,.025],
-            [0,.345],
-            [.43,.025],
-            [.39,-.34]
+            [-.43,.43], // outer-left
+            [-.34,.35], // left inner
+            [0,.30],    // centre foreground
+            [.34,.35],  // right inner
+            [.43,.43]   // outer-right
           ][index];
-          // Flatten into the final five-point grid while staying outside the title area.
+          // Scroll end: upper pair, left/right pair and a lower-centre card around the title.
           gridTarget = [
-            [-.36,-.34], // upper-left
-            [-.43,.055], // left-middle
-            [0,.335],    // bottom-centre
-            [.43,.055],  // right-middle
-            [.36,-.34]   // upper-right
+            [-.34,-.31], // upper-left, above headline
+            [-.43,.055], // left side, outside headline width
+            [0,.33],     // bottom-centre, below headline
+            [.43,.055],  // right side, outside headline width
+            [.34,-.31]   // upper-right, above headline
           ][index];
         }
 
