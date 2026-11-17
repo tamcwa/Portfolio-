@@ -1226,6 +1226,7 @@
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             inspirationSection.classList.add("is-visible");
+            inspirationSection.querySelectorAll(".inspire-tile").forEach(tile => tile.classList.add("is-visible"));
             inspirationObserver.unobserve(entry.target);
           }
         });
