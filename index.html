@@ -770,6 +770,185 @@
       .contact-button { align-self: flex-end; }
       .footer-row { align-items: flex-start; flex-direction: column; }
     }
+  
+
+    /* Combined hero + arc gallery: one continuous pinned homepage scene */
+    .combined-hero-gallery {
+      height: 218vh;
+      min-height: 1350px;
+      background:
+        radial-gradient(ellipse at 12% 7%,rgba(112,190,255,.23),transparent 32%),
+        radial-gradient(ellipse at 88% 20%,rgba(169,135,255,.19),transparent 34%),
+        linear-gradient(180deg,#fbfbfd 0%,#f2f1f8 100%);
+      border-bottom: 1px solid var(--line);
+    }
+    .combined-hero-gallery .gallery-sticky {
+      grid-template-rows: auto auto minmax(0,1fr) auto;
+      gap: clamp(7px,1.1vh,13px);
+      padding-top: clamp(15px,2vh,24px);
+      padding-bottom: 18px;
+      min-height: 650px;
+      height: calc(100svh - var(--header));
+      background-image:
+        linear-gradient(rgba(65,82,145,.035) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(65,82,145,.035) 1px,transparent 1px);
+      background-size: 52px 52px;
+      background-position: center top;
+    }
+    .combined-hero-gallery .gallery-sticky::before {
+      width: min(76vw,930px);
+      top: 58%;
+      border-color: rgba(70,86,160,.07);
+      box-shadow: 0 0 0 48px rgba(95,107,180,.022),0 0 0 96px rgba(95,107,180,.018);
+    }
+    .combined-hero-gallery .hero-top {
+      position: relative;
+      z-index: 6;
+      width: min(100%,var(--max));
+      margin: 0 auto;
+    }
+    .combined-title {
+      position: relative;
+      z-index: 5;
+      width: min(100%,var(--max));
+      margin: 0 auto;
+      text-align: center;
+      align-self: center;
+      padding-top: clamp(4px,1vh,12px);
+    }
+    .combined-title .hero-pretitle {
+      padding: 7px 12px;
+      font-size: 8px;
+      letter-spacing: .13em;
+    }
+    .combined-title h1 {
+      margin: 13px auto 0;
+      max-width: 1160px;
+      font: 800 clamp(57px,8.7vw,126px)/.76 var(--display);
+      letter-spacing: -.105em;
+      text-transform: uppercase;
+    }
+    .combined-title h1 .solid,
+    .combined-title h1 .stroke { display: block; }
+    .combined-title h1 .stroke {
+      color: transparent;
+      -webkit-text-stroke: 1.5px #292d3e;
+      text-stroke: 1.5px #292d3e;
+    }
+    .combined-title h1 .dot { color: var(--blue); -webkit-text-stroke: 0; }
+    .combined-title .hero-caption {
+      max-width: 520px;
+      margin: 12px auto 0;
+      font-size: clamp(11px,1.05vw,14px);
+      line-height: 1.55;
+    }
+    .combined-hero-gallery .gallery-stage {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 235px;
+      max-width: var(--max);
+      margin: 0 auto;
+      perspective: 1500px;
+      transform-style: preserve-3d;
+      align-self: stretch;
+    }
+    .gallery-motion-stage {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      perspective: 1500px;
+      transform-style: preserve-3d;
+    }
+    .combined-hero-gallery .gallery-stage .orbit-wrap {
+      display: block;
+    }
+    .combined-gallery-foot {
+      position: relative;
+      z-index: 8;
+      width: min(100%,var(--max));
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto minmax(90px,18vw) 1fr;
+      align-items: center;
+      gap: 16px;
+      font-size: 8px;
+    }
+    .combined-gallery-foot > span:last-child { text-align: right; }
+    .combined-scroll-cue {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      white-space: nowrap;
+      color: #7c8092;
+    }
+    .combined-scroll-cue i {
+      width: 30px;
+      height: 30px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: var(--blue);
+      font: normal 14px var(--sans);
+    }
+    .combined-gallery-foot .gallery-progress {
+      width: 100%;
+      max-width: 210px;
+      justify-self: center;
+    }
+    .combined-hero-gallery .orbit-shadow { bottom: 0; }
+
+    @media (max-height: 760px) and (min-width: 851px) {
+      .combined-hero-gallery .gallery-sticky { min-height: 610px; }
+      .combined-title h1 { font-size: clamp(54px,7.3vw,100px); }
+      .combined-title .hero-caption { margin-top: 7px; }
+      .combined-hero-gallery .gallery-stage { min-height: 205px; }
+    }
+    @media (max-width: 850px) {
+      .combined-hero-gallery { height: 205vh; min-height: 1300px; }
+      .combined-hero-gallery .gallery-sticky {
+        min-height: 690px;
+        grid-template-rows: auto auto minmax(220px,1fr) auto;
+      }
+      .combined-title h1 { font-size: clamp(58px,10vw,92px); }
+      .combined-hero-gallery .gallery-stage { min-height: 235px; }
+      .combined-gallery-foot {
+        grid-template-columns: 1fr auto;
+        row-gap: 7px;
+      }
+      .combined-gallery-foot .gallery-progress { grid-column: 1; grid-row: 2; justify-self: start; }
+      .combined-gallery-foot > span:last-child { grid-column: 2; grid-row: 2; }
+    }
+    @media (max-width: 560px) {
+      .combined-hero-gallery { height: 190vh; min-height: 1230px; }
+      .combined-hero-gallery .gallery-sticky {
+        min-height: 650px;
+        padding: 17px 18px 14px;
+        grid-template-rows: auto auto minmax(210px,1fr) auto;
+        gap: 8px;
+      }
+      .combined-hero-gallery .hero-top { flex-direction: row; align-items: center; gap: 8px; }
+      .combined-hero-gallery .hero-top .eyebrow { font-size: 7px; letter-spacing: .07em; }
+      .combined-hero-gallery .hero-status { font-size: 7px; }
+      .combined-title { padding-top: 5px; }
+      .combined-title .hero-pretitle { font-size: 6px; padding: 6px 9px; }
+      .combined-title h1 { font-size: clamp(49px,13vw,72px); margin-top: 11px; }
+      .combined-title h1 .stroke { -webkit-text-stroke-width: 1.1px; }
+      .combined-title .hero-caption { max-width: 310px; font-size: 10px; margin-top: 9px; }
+      .combined-hero-gallery .gallery-stage { min-height: 210px; width: 116%; margin-left: -8%; }
+      .combined-hero-gallery .gallery-stage .orbit-card { width: 135px; }
+      .combined-hero-gallery .gallery-stage .orbit-card.card-3 { width: 148px; }
+      .combined-hero-gallery .gallery-stage .mock-art .big { font-size: 22px; }
+      .combined-hero-gallery .gallery-stage .orbit-label { font-size: 6px; padding: 5px 7px; }
+      .combined-gallery-foot { font-size: 6px; gap: 6px 10px; }
+      .combined-scroll-cue { font-size: 6px; }
+      .combined-scroll-cue i { width: 24px; height: 24px; font-size: 12px; }
+      .combined-gallery-foot .gallery-progress { max-width: 110px; }
+      .combined-gallery-foot > span:last-child { font-size: 0; }
+    }
+
   </style>
 </head>
 <body>
@@ -799,19 +978,22 @@
   </header>
 
   <main>
-    <section class="hero" id="home">
-      <div class="hero-top shell">
-        <span class="eyebrow">Independent visual designer</span>
-        <span class="hero-status"><i></i> Open to selected projects</span>
-      </div>
+    <section class="gallery-sequence combined-hero-gallery" id="home" aria-label="Designer introduction and animated project gallery">
+      <div class="gallery-sticky">
+        <div class="hero-top shell">
+          <span class="eyebrow">Independent visual designer</span>
+          <span class="hero-status"><i></i> Open to selected projects</span>
+        </div>
 
-      <div class="hero-content shell reveal">
-        <span class="hero-pretitle">Graphic design · Visual identity · Digital</span>
-        <h1><span class="solid">Design</span><span class="stroke">in motion<span class="dot">.</span></span></h1>
-        <p class="hero-caption">Turning ideas into <strong>visual experiences</strong> through graphic design, art direction and digital storytelling.</p>
-      </div>
+        <div class="hero-content shell combined-title reveal">
+          <span class="hero-pretitle">Graphic design · Visual identity · Digital</span>
+          <h1><span class="solid">Design</span><span class="stroke">in motion<span class="dot">.</span></span></h1>
+          <p class="hero-caption">Turning ideas into <strong>visual experiences</strong> through graphic design, art direction and digital storytelling.</p>
+        </div>
 
-      <div class="orbit-wrap" aria-label="Floating preview gallery of selected design projects">
+        <div class="gallery-stage" id="gallery">
+          <div class="gallery-motion-stage" id="gallery-motion-stage">
+      <div class="orbit-wrap" aria-label="Animated arc gallery of selected design projects">
         <span class="orbit-label label-a">UI / UX</span>
         <span class="orbit-label label-b">Graphic design</span>
         <span class="orbit-label label-c">Motion &amp; visual</span>
@@ -840,27 +1022,15 @@
         <span class="orbit-shadow"></span>
       </div>
 
-      <div class="hero-bottom shell">
-        <span>Selected explorations / 2023—2026</span>
-        <a class="scroll-cue" href="#work">Scroll to explore <i>↓</i></a>
-        <span>Hong Kong · Available worldwide</span>
-      </div>
-    </section>
 
-    <section class="gallery-sequence" id="gallery" aria-label="Selected work gallery">
-      <div class="gallery-sticky">
-        <div class="gallery-heading">
-          <div>
-            <span class="eyebrow">Selected projects / 2023—2026</span>
-            <h2>From a curve <em>to a collection.</em></h2>
           </div>
-          <span class="gallery-side-note">Scroll to arrange<br>01 — 05 / Selected work</span>
         </div>
-        <div class="gallery-stage" id="gallery-stage"></div>
-        <div class="gallery-foot">
-          <span>DESIGN IN MOTION / A VISUAL ARCHIVE</span>
+
+        <div class="gallery-foot combined-gallery-foot">
+          <span>SELECTED EXPLORATIONS / 2023—2026</span>
+          <span class="combined-scroll-cue">SCROLL TO EXPLORE <i>↓</i></span>
           <span class="gallery-progress"><span id="gallery-progress-fill"></span></span>
-          <span>Keep scrolling ↓</span>
+          <span>HONG KONG · AVAILABLE WORLDWIDE</span>
         </div>
       </div>
     </section>
@@ -1121,13 +1291,11 @@
       });
     }
 
-    // Move the original hero project cards into the pinned gallery scene.
-    const originalOrbit = document.querySelector(".hero .orbit-wrap");
-    const galleryStage = document.getElementById("gallery-stage");
-    if (originalOrbit && galleryStage) galleryStage.appendChild(originalOrbit);
+    // The hero title and 3D gallery now share one pinned homepage sequence.
+    const galleryStage = document.getElementById("gallery-motion-stage");
 
     // Scroll-driven arc-to-grid transition, modelled on the first reference video.
-    const galleryScene = document.querySelector(".gallery-sequence");
+    const galleryScene = document.querySelector(".combined-hero-gallery");
     const galleryCards = galleryStage ? Array.from(galleryStage.querySelectorAll(".orbit-card")) : [];
     const galleryLabels = galleryStage ? Array.from(galleryStage.querySelectorAll(".orbit-label")) : [];
     const progressFill = document.getElementById("gallery-progress-fill");
