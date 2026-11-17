@@ -1404,6 +1404,28 @@
       .showcase-viewport { overflow-x: auto; }
     }
 
+  
+
+    /* Align the headline above the moving project strip; avoid collision with the cards. */
+    .combined-hero-gallery .combined-title.reveal,
+    .combined-hero-gallery .combined-title.reveal.is-visible {
+      top: 31%;
+      left: 50%;
+      width: min(88%,1100px);
+    }
+    .combined-hero-gallery .combined-title.reveal {
+      transform: translate(-50%,calc(-50% + 22px));
+    }
+    .combined-hero-gallery .combined-title.reveal.is-visible {
+      transform: translate(-50%,-50%);
+    }
+    .showcase-viewport { top: 67%; }
+    @media (max-width: 650px) {
+      .combined-hero-gallery .combined-title.reveal,
+      .combined-hero-gallery .combined-title.reveal.is-visible { top: 31%; }
+      .showcase-viewport { top: 69%; }
+    }
+
   </style>
 </head>
 <body>
@@ -1782,6 +1804,7 @@
     const progressFill = document.getElementById("gallery-progress-fill");
     const showcaseTrack = document.getElementById("showcase-track");
     const reduceShowcaseMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const clamp01 = value => Math.max(0, Math.min(1, value));
 
     // The second set of cards is a visual loop duplicate; hide it from assistive technology.
     // The marquee itself runs in CSS and can be paused by hovering or focusing the gallery.
